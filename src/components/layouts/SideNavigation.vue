@@ -1,34 +1,38 @@
 <template>
 	<div class="side-nav">
-        <div class="title">
-            <p></p>
-            <h1>Packform</h1>
-        </div>
+		<div class="title">
+			<div class="hexagon"></div>
+			<h1>Packform</h1>
+		</div>
 
-        <div class="item-container">
-            <div class="item" 
-                v-for="(item, key) in pages" 
-                :key="key" 
-                @click="active = item.route"
-            >
-                <span :class="{'active' : active === item.route}">{{ item.name }}</span>
+		<div class="item-container">
+			<div
+				class="item"
+				v-for="(item, key) in pages"
+				:key="key"
+			>
+				<span
+					@click="goto(item.route)"
+					:class="{'active' : $route.path === item.route}"
+				>
+					{{ item.name }}
+				</span>
 
-                <ul 
-                    v-if="item.children && active === item.route"
-                    class="children-container"
-                >
-                    <li 
-                        v-for="(item, key) in item.children" 
-                        :key="key"
-                        :class="{'active' : child === item.route}"
-                        @click="child = item.route"
-                    >
-                        {{ item.name }}
-                    </li>
-                </ul>
+				<ul
+					v-if="item.children"
+					class="children-container"
+				>
+					<li
+						v-for="(item, key) in item.children"
+						:key="key"
+						@click="goto(item.route)"
+					>
+						<span :class="{'active' : $route.path === item.route}">{{ item.name }}</span>
+					</li>
+				</ul>
 
-            </div>
-        </div>
+			</div>
+		</div>
 	</div>
 </template>
 <script>
@@ -36,88 +40,117 @@
 export default {
 	data () {
 		return {
-            pages: [
-                {name: 'Dashboard', route: '/dashboard'},
+			pages: [
+				{ name: 'Dashboard', route: '/dashboard' },
 
-                {
-                    name: 'Customers', 
-                    route: '/customers', 
-                    children: [
-                        { name: 'Orders', route: '/orders'},
-                        { name: 'Companies', route: '/companies'},
-                        { name: 'Users', route: '/users'},
-                        { name: 'Price Lists', route: '/price-lists'}
-                    ]
-                },
-                
-                {name: 'Suppliers', route: '/suppliers'},
-                {name: 'Catalog', route: '/catalog'},
-            ],
+				{
+					name: 'Customers',
+					route: '/customers',
+					children: [
+						{ name: 'Orders', route: '/orders' },
+						{ name: 'Companies', route: '/companies' },
+						{ name: 'Users', route: '/users' },
+						{ name: 'Price Lists', route: '/price-lists' }
+					]
+				},
 
-            active: '/customers',
-            child: ''
+				{ name: 'Suppliers', route: '/suppliers' },
+				{ name: 'Catalog', route: '/catalog' },
+			],
+
+			active: '',
+			child: ''
 		}
 	},
+
+	methods: {
+		goto (loc) {
+			this.$router.push(loc)
+		}
+	}
 }
 
 </script>
 
 <style lang="scss" scope>
-    .side-nav {
-        .title {
-            display: flex;
-            align-content: center;
-            justify-content: center;
+.side-nav {
+	.title {
+		display: flex;
+		align-content: center;
+		justify-content: center;
 
-            p {
-                width: 33px;
-                height: 37px;
-                margin-right: 5px;
+		.hexagon {
+			position: relative;
+			width: 33px;
+			height: 19.05px;
+			background-color: #4c30bf;
+			margin: 9.53px 0;
+			margin-top: 20px;
+			margin-right: 15px;
+		}
 
-                background: transparent linear-gradient(323deg, #7857F9 0%, #4C30BF 100%) 0% 0% no-repeat padding-box;
-                opacity: 1;
-            }
+		.hexagon:before,
+		.hexagon:after {
+			content: "";
+			position: absolute;
+			width: 0;
+			border-left: 16.5px solid transparent;
+			border-right: 16.5px solid transparent;
+		}
 
-            h1 {
-                color: #111111,
-            }
-        }
+		.hexagon:before {
+			bottom: 100%;
+			border-bottom: 9.53px solid #4c30bf;
+		}
 
-        .item-container {
-            // margin-left: 80px;
+		.hexagon:after {
+			top: 100%;
+			width: 0;
+			border-top: 9.53px solid #4c30bf;
+		}
 
-            .item {
-                padding: 13px 0 13px 70px;
-                cursor: pointer;
-                color: #7D7D7D;
-                font-size: 16px;
+		h1 {
+			color: #111111;
+		}
+	}
 
-                span {
-                    padding-left: 20px;
-                    &.active {
-                        border-left: #593EC2 4px solid;
-                        color: #333333;
-                    }
-                }
+	.item-container {
+		// margin-left: 80px;
 
-                .children-container {
-                    list-style: none;
-                    color: #7D7D7D;
+		.item {
+			padding: 13px 0 13px 70px;
+			cursor: pointer;
+			color: #7d7d7d;
+			font-size: 16px;
 
-                    li {
-                        padding: 13px 0px;
+			span {
+				padding-left: 20px;
+				&.active {
+					border-left: #593ec2 4px solid;
+					color: #333333;
+				}
+			}
 
-                        &.active {
-                            color: #333333;
-                        }
-                    }
-                }
+			.children-container {
+				list-style: none;
+				color: #7d7d7d;
 
-                &.active {
-                    border-left: #593EC2 4px solid;
-                    color: #333333;
-                }
-            }
-        }
-    }
+				li {
+					padding: 13px 0px;
+
+					.active {
+						color: #333333;
+						border-left: #593ec2 4px solid;
+						padding-left: 20px;
+					}
+				}
+			}
+
+			&.active {
+				border-left: #593ec2 4px solid;
+				color: #333333;
+			}
+		}
+	}
+}
 </style>

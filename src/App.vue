@@ -1,10 +1,11 @@
 <template>
 	<div class="app">
-		<SideNavigation class="side-nav"/>
+		<SideNavigation class="side-nav" />
 
 		<div class="content">
 			<Header class="header" />
-			<router-view />	
+			<router-view />
+			<Footer />
 		</div>
 	</div>
 </template>
@@ -12,26 +13,32 @@
 <script>
 import SideNavigation from '@/components/layouts/SideNavigation.vue'
 import Header from '@/components/layouts/Header.vue'
+import Footer from '@/components/layouts/Footer'
 
 export default {
 	name: 'app',
 	components: {
 		SideNavigation,
-		Header
+		Header,
+		Footer
 	}
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss">
 .app {
-	@import url('https://rsms.me/inter/inter.css');
-	font-family: 'Inter', sans-serif;
+	@import url("https://rsms.me/inter/inter.css");
+	font-family: "Inter", sans-serif;
 
 	top: 0px;
 	left: 0px;
-	background: #F3F3F4 0% 0% no-repeat padding-box;
+	background: #f3f3f4 0% 0% no-repeat padding-box;
 	opacity: 1;
 	display: flex;
+
+	button {
+		border: none;
+	}
 
 	.side-nav {
 		width: 332px;
