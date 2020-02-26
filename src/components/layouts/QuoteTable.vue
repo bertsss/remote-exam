@@ -247,15 +247,15 @@ export default {
 		},
 
 		viewQuote () {
-			console.log('view quote')
+			alert('view quote')
 		},
 
 		provide () {
-			console.log('provide')
+			alert('provide')
 		},
 
 		cancel () {
-			console.log('cancel')
+			alert('cancel')
 		},
 	}
 }

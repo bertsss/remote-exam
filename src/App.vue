@@ -21,6 +21,13 @@ export default {
 		SideNavigation,
 		Header,
 		Footer
+	},
+
+	created() {
+		// eslint-disable-next-line no-console
+		console.log(process.env.VUE_APP_TITLE)
+		// eslint-disable-next-line no-console
+		console.log(process.env.NODE_ENV)
 	}
 }
 </script>

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+// eslint-disable-next-line no-unused-vars
 import icons from './icons'
 
 Vue.filter('formatNumber', function (value) {
